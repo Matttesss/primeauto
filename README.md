@@ -1,6 +1,10 @@
 # Prime Auto
 
-Minimalistický český web: čtyři rovnocenné služby, samostatný ceník detailingu a skutečný rezervační backend. Node.js **24+**, bez instalačních závislostí. Používá vestavěné `node:sqlite`.
+Verze 4 — přehlednější český web: čtyři rovnocenné služby, samostatný ceník detailingu a skutečný rezervační backend. Node.js **24+**, bez instalačních závislostí. Používá vestavěné `node:sqlite`.
+
+## Windows: nejjednodušší spuštění
+
+Po rozbalení ZIPu otevřete **spustit-web.cmd** dvojklikem. Web se spustí i s databází a otevře prohlížeč. Podrobnosti v [AKTUALIZACE-WINDOWS.md](AKTUALIZACE-WINDOWS.md). Při aktualizaci zachovejte `.data` s rezervacemi a místním heslem.
 
 ## Lokální vývoj
 
@@ -76,3 +80,9 @@ Dva samostatné obrázky BMW E60 a Mercedesu W203 mají plné rozlišení 1774 �
 `npm test`: skutečné databázové testy kombinací a cen, bloků 5/7 h, pracovní doby, nedělí, překryvů, atomického uložení více vozů, perzistence po otevření databáze, kontaktů a souhlasů, zimního/letního času. HTTP integrační test ověřuje závod dvou objednávek (jedna 201, druhá 409), autentizaci správy, storno, CORS, neveřejnost databáze a lokální obrázky.
 
 V Chromium byl proveden celý formulář pro dva vozy (7 + 5 hodin), zápis do databáze a ICS kalendáře, stažení potvrzení, všech sedm kombinací služeb na backendu, mobilní navigace a absence vodorovného přetékání při 390 px, právní dialogy a chování při výpadku API. Prohlížečové testy používají izolovanou testovací databázi; nevytvářejí skutečné zákaznické objednávky ani neodesílají e-maily. Nasazení a trvalý disk na Renderu zatím ověřeny nejsou.
+
+## Revize verze 4
+
+Viz [REVIZE.md](REVIZE.md): přímá navigace služeb, konečné ceny, fotografie postupu, tříkrokový formulář, sdílený katalog a bezpečné opakování objednávky. Vlastní blokace ve správě se ihned propisují do skutečné dostupnosti. Důvod blokace se ve veřejném kalendáři neukazuje.
+
+Volitelný reprodukovatelný prohlížečový scénář je `scripts/browser-check.mjs`: nastavte `PLAYWRIGHT_MODULE` na absolutní cestu k nainstalovanému modulu Playwright a případně `CHROMIUM_PATH`. Scénář sám spouští izolovanou databázi a server a ukládá snímky do ignorované `.artifacts`. Není součástí produkčních závislostí.

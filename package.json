@@ -1,13 +1,15 @@
 {
   "name": "prime-auto",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "check": "node --check server.mjs && node --check booking.mjs && node --check admin.js && node --check scripts/bookings.mjs && node --check public/app.js && node --check public/legal.js && node --check public/booking-config.js",
+    "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs",
-    "bookings": "node scripts/bookings.mjs list"
+    "bookings": "node scripts/bookings.mjs list",
+    "dev": "node scripts/start-local.mjs",
+    "test:browser": "node scripts/browser-check.mjs"
   },
   "engines": {
     "node": ">=24"

@@ -5,293 +5,363 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Prime Auto v Nové Pace. Detailing, servis vozidel, předkupní prohlídky a připravovaný odtah. Vše pro vaše auto na jednom místě."
+      content="Prime Auto: detailing po celé ČR, servis a předkupní prohlídky. Přehledné ceny včetně energií, online termíny Po–So 8–20. Nová Paka, 736 212 511."
     />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="theme-color" content="#183c32" />
-    <title>Prime Auto — Péče. Jistota. Mobilita.</title>
+    <meta
+      property="og:title"
+      content="Prime Auto — Vaše auto v dobrých rukou"
+    />
+    <meta
+      property="og:description"
+      content="Detailing, servis a jistota při koupi. Jasná cena, konkrétní termín, přímý kontakt."
+    />
+    <meta property="og:type" content="website" />
+    <title>Prime Auto — Detailing, servis a předkupní prohlídky</title>
     <link rel="icon" href="./images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./booking-config.js" defer></script>
     <script src="./legal.js" defer></script>
-    <script src="./app.js" defer></script>
+    <script type="module" src="./app.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Přejít k obsahu</a>
     <div class="topbar">
-      <span>VAŠE AUTO. NÁŠ SPOLEČNÝ SMĚR.</span
-      ><a href="mailto:primeautokontakt@gmail.com"
-        >primeautokontakt@gmail.com ↗</a
-      ><span>Nová Paka · Detailing po celé ČR</span>
+      <span>Nová Paka · Detailing po celé ČR</span
+      ><span>Po–So 8:00–20:00 · Neděle zavřeno</span>
     </div>
-    <header>
-      <a href="#domu" class="brand" aria-label="Prime Auto — úvod"
+    <header class="site-header">
+      <a class="brand" href="#domu" aria-label="Prime Auto — úvod"
         ><span class="brand-icon" aria-hidden="true"></span
-        ><span class="brand-wordmark"
-          >PRIME AUTO<small>PÉČE. JISTOTA. MOBILITA.</small></span
-        ></a
+        ><span>PRIME AUTO<small>PÉČE. JISTOTA. MOBILITA.</small></span></a
       ><button
         class="menu-toggle"
         type="button"
         aria-expanded="false"
         aria-controls="navigation"
       >
-        Menu <span>☰</span>
+        Menu <span aria-hidden="true">☰</span>
       </button>
       <nav id="navigation" aria-label="Hlavní navigace">
-        <a href="#sluzby">Naše služby</a><a href="#pristup">Jak pracujeme</a
+        <a href="#detailing">Detailing</a><a href="#servis">Servis</a
+        ><a href="#prohlidky">Předkupní prohlídky</a
+        ><a href="#odtah">Odtah <small>brzy</small></a
         ><a href="#kontakt">Kontakt</a>
       </nav>
       <a class="header-phone" href="tel:+420736212511"
-        ><span class="phone-symbol">↗</span
-        ><span><small>ZAVOLEJTE NÁM</small>736 212 511</span></a
+        ><small>ZAVOLEJTE NÁM</small><strong>736 212 511 ↗</strong></a
       >
     </header>
-    <main id="home-view">
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">PRIME AUTO · NOVÁ PAKA</p>
-          <h1>Dobrá péče.<br /><em>Pro vaše auto.</em></h1>
-          <p class="lead">
-            Detailing, servis a jistota při koupi.<br />Vše pod jednou střechou.
-            Vždy po jasné domluvě.
-          </p>
-          <div class="hero-actions">
-            <a class="button" href="#sluzby">Vybrat službu <span>↗</span></a
-            ><a class="quiet-link" href="tel:+420736212511"
-              >736 212 511 <span>↗</span></a
-            >
-          </div>
-          <div class="hero-proof">
-            <span>Po–So · 8:00–20:00</span><span>Detailing po celé ČR</span>
-          </div>
-        </div>
-        <div class="hero-photo">
-          <img
-            src="./images/bmw-e60.webp"
-            width="1774"
-            height="887"
-            alt="BMW řady 5 E60"
-            fetchpriority="high"
-          />
-        </div>
-      </section>
-      <section class="section home-services" id="sluzby">
-        <div class="section-intro">
-          <div>
-            <p class="eyebrow">NAŠE SLUŽBY</p>
-            <h2>Co vaše auto potřebuje?</h2>
-          </div>
-          <p>Vyberte službu. O zbytek se domluvíme.</p>
-        </div>
-        <div class="service-grid">
-          <a class="service-card" href="#detailing"
-            ><div class="simple-service-top"><span>01</span><b>↗</b></div>
-            <div class="service-body">
-              <h3>Detailing</h3>
-              <p>Interiér, exteriér i motor.<br />Pečlivá péče po celé ČR.</p>
-              <div class="card-bottom">
-                <span>Ceník a rezervace</span><b>↗</b>
-              </div>
-            </div></a
-          >
-          <a class="service-card" href="#servis"
-            ><div class="simple-service-top"><span>02</span><b>↗</b></div>
-            <div class="service-body">
-              <h3>Servis vozidel</h3>
-              <p>Údržba a řešení závad.<br />Rozsah a cena předem.</p>
-              <div class="card-bottom">
-                <span>Domluvit servis</span><b>↗</b>
-              </div>
-            </div></a
-          >
-          <a class="service-card" href="#prohlidky"
-            ><div class="simple-service-top"><span>03</span><b>↗</b></div>
-            <div class="service-body">
-              <h3>Předkupní prohlídky</h3>
-              <p>Další pohled na vybraný vůz.<br />Než převezmete klíče.</p>
-              <div class="card-bottom">
-                <span>Jak prohlídka probíhá</span><b>↗</b>
-              </div>
-            </div></a
-          >
-          <a class="service-card tow-card" href="#odtah"
-            ><div class="simple-service-top">
-              <span>04</span><span class="simple-status">PŘIPRAVUJEME</span>
+    <main id="main-content" tabindex="-1">
+      <div id="home-view">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">PRIME AUTO · NOVÁ PAKA</p>
+            <h1>Vaše auto.<br /><em>V dobrých rukou.</em></h1>
+            <p class="lead">
+              Čistota, technická péče i jistota při koupi.<br />Vyberte službu.
+              Cenu a další postup si řekneme na rovinu.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#sluzby"
+                >Co vaše auto potřebuje? <span aria-hidden="true">↓</span></a
+              ><a class="text-link" href="tel:+420736212511"
+                >Poradíme po telefonu ↗</a
+              >
             </div>
-            <div class="service-body">
-              <h3>Odtah vozidel</h3>
-              <p>Odtahovka je na cestě.<br />Brzy rozšíříme naše služby.</p>
-              <div class="card-bottom"><span>Zjistit více</span><b>↗</b></div>
-            </div></a
-          >
-        </div>
-      </section>
-      <section class="section simple-story" id="pristup">
-        <div class="story-photo">
-          <img
-            src="./images/mercedes-w203.webp"
-            width="1774"
-            height="887"
-            loading="lazy"
-            alt="Mercedes-Benz třídy C W203"
-          />
-        </div>
-        <div class="story-copy">
-          <p class="eyebrow">MÉNĚ SLOV. VÍCE PÉČE.</p>
-          <h2>Domluva, na kterou<br />se můžete spolehnout.</h2>
-          <p>
-            Nejdřív si řekneme, co vaše auto potřebuje. Odsouhlasíme rozsah,
-            cenu i termín. Další práci uděláme jen s vaším souhlasem.
-          </p>
-          <div class="story-points">
-            <span>01 <b>Jasná cena předem</b></span
-            ><span>02 <b>Péče podle stavu vozu</b></span
-            ><span>03 <b>Přímý kontakt na nás</b></span>
+            <div class="hero-facts">
+              <span>Jasná cena předem</span><span>Přímý kontakt</span>
+            </div>
           </div>
-          <a class="quiet-link" href="tel:+420736212511"
-            >Máte dotaz? Zavolejte nám <span>↗</span></a
-          >
-        </div>
-      </section>
-      <section class="section faq-section">
-        <div>
-          <p class="eyebrow">ČASTÉ DOTAZY</p>
-          <h2>Vše důležité.<br />Jednoduše.</h2>
-          <p class="faq-contact">
-            Nenašli jste odpověď?<br /><a href="tel:+420736212511"
-              >736 212 511 ↗</a
+          <div class="hero-image">
+            <img
+              src="./images/bmw-e60.webp"
+              width="1774"
+              height="887"
+              alt="BMW řady 5 E60"
+              fetchpriority="high"
+            /><span class="image-corner">PRIME AUTO / PÉČE O VÁŠ VŮZ</span>
+          </div>
+        </section>
+        <section class="section home-services" id="sluzby">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">VYBERTE SVOU SLUŽBU</p>
+              <h2>Rychle k tomu, co hledáte.</h2>
+            </div>
+            <p>Jeden kontakt. Čtyři směry péče.</p>
+          </div>
+          <div class="service-grid">
+            <a class="service-card" href="#detailing"
+              ><div class="service-card-top">
+                <span>01 / ČISTOTA</span><b aria-hidden="true">↗</b>
+              </div>
+              <h3>Detailing vozidel</h3>
+              <p>
+                Interiér, exteriér a motorový prostor. Libovolné kombinace péče.
+              </p>
+              <span class="service-card-action"
+                >Ceník a online termíny <span aria-hidden="true">→</span></span
+              ></a
+            ><a class="service-card" href="#servis"
+              ><div class="service-card-top">
+                <span>02 / TECHNIKA</span><b aria-hidden="true">↗</b>
+              </div>
+              <h3>Servis vozidel</h3>
+              <p>
+                Údržba a řešení závad. Nejdřív domluvíme rozsah, cenu a termín.
+              </p>
+              <span class="service-card-action"
+                >Domluvit servis <span aria-hidden="true">→</span></span
+              ></a
+            ><a class="service-card" href="#prohlidky"
+              ><div class="service-card-top">
+                <span>03 / JISTOTA</span><b aria-hidden="true">↗</b>
+              </div>
+              <h3>Předkupní prohlídky</h3>
+              <p>
+                Prověření vybraného auta a srozumitelné vysvětlení zjištění.
+              </p>
+              <span class="service-card-action"
+                >Jak prohlídka probíhá <span aria-hidden="true">→</span></span
+              ></a
+            ><a class="service-card coming" href="#odtah"
+              ><div class="service-card-top">
+                <span>04 / MOBILITA</span><small>PŘIPRAVUJEME</small>
+              </div>
+              <h3>Odtah vozidel</h3>
+              <p>
+                Odtahovka je na cestě. Tuto službu pro vás teprve připravujeme.
+              </p>
+              <span class="service-card-action"
+                >Informace o dostupnosti <span aria-hidden="true">→</span></span
+              ></a
             >
-          </p>
-        </div>
-        <div class="faq-list">
-          <details>
-            <summary>Jak dlouho detailing trvá?<span>+</span></summary>
+          </div>
+          <div class="choice-help">
+            <span>Nejste si jistí, kde začít? Probereme to spolu.</span
+            ><a href="tel:+420736212511">736 212 511 ↗</a>
+          </div>
+        </section>
+        <section class="section story" id="pristup">
+          <div class="story-image">
+            <img
+              src="./images/mercedes-w203.webp"
+              width="1774"
+              height="887"
+              loading="lazy"
+              alt="Mercedes-Benz třídy C W203"
+            />
+          </div>
+          <div class="story-copy">
+            <p class="eyebrow">DOBRÁ SLUŽBA ZAČÍNÁ DOMLUVOU</p>
+            <h2>
+              Žádné složité hledání.<br /><em>Žádná práce bez domluvy.</em>
+            </h2>
             <p>
-              Samotná práce obvykle zabere 4–5 hodin podle stavu vozu a
-              vybraných služeb. V kalendáři vždy blokujeme 5 hodin na každý vůz.
-              S dopravou tam i zpět vyhradíme 7 hodin.
+              Řeknete nám, co váš vůz potřebuje. My vysvětlíme možnosti, cenu i
+              další krok. Případné vícepráce s vámi nejdřív probereme.
             </p>
-          </details>
-          <details>
-            <summary>
-              Mohu zkombinovat všechny služby detailingu?<span>+</span>
-            </summary>
-            <p>
-              Ano. Interiér, exteriér a motorový prostor můžete libovolně
-              kombinovat. Formulář průběžně spočítá cenu; energie 1 530 Kč se
-              připočítají jednou za každý vůz.
-            </p>
-          </details>
-          <details>
-            <summary>Mohu objednat více aut najednou?<span>+</span></summary>
-            <p>
-              Ano, přidejte další vozidlo ve formuláři. Každé auto má vlastní
-              výběr služeb, datum a čas. Na každý vůz rezervujeme 5 hodin, s
-              dopravou 7 hodin. Termíny se nesmějí překrývat.
-            </p>
-          </details>
-          <details>
-            <summary>Kde detailing nabízíte?<span>+</span></summary>
-            <p>
-              Po celé České republice po předchozí domluvě. Konkrétní místo
-              provedení a případnou dopravu domluvíme podle vzdálenosti a
-              podmínek. Cenu dopravy odsouhlasíte předem na 736 212 511.
-            </p>
-          </details>
-          <details>
-            <summary>Kdy máte otevřeno?<span>+</span></summary>
-            <p>
-              Od pondělí do soboty 8:00–20:00. V neděli máme zavřeno. Návštěvy a
-              předání vozů prosím vždy po předchozí domluvě.
-            </p>
-          </details>
-          <details>
-            <summary>Jak rezervaci změním nebo zruším?<span>+</span></summary>
-            <p>
-              Zavolejte na 736 212 511 nebo napište na
-              primeautokontakt@gmail.com a uveďte číslo rezervace. Změnu s vámi
-              vyřešíme osobně.
-            </p>
-          </details>
-          <details>
-            <summary>Je odtah už dostupný?<span>+</span></summary>
-            <p>
-              Zatím ne. Odtahovou službu připravujeme. Doprava vozu na detailing
-              je samostatná možnost po předchozí dohodě.
-            </p>
-          </details>
-        </div>
-      </section>
-      <div class="photo-tow" hidden>
-        <svg viewBox="0 0 600 300" aria-hidden="true">
-          <path
-            d="M0 245H600M80 208h335l39-98h67l44 74v49h-35m-82 0H187m-80 0H65v-25h15v-39h290l29-25"
-          />
-          <circle cx="147" cy="233" r="30" />
-          <circle cx="491" cy="233" r="30" />
-          <path
-            d="M447 126h62l25 45h-103zm-335 35l29-54h113l57 54M157 109l29-35h74l40 35m-115-2V78m-69 84h224"
-          />
-          <circle cx="155" cy="162" r="17" />
-          <circle cx="286" cy="162" r="17" />
-        </svg>
+            <ul class="check-list">
+              <li>Rozsah a cena předem</li>
+              <li>Postup podle stavu vašeho vozu</li>
+              <li>Telefon přímo na nás</li>
+            </ul>
+            <a class="text-link" href="#kontakt">Pojďme se domluvit ↗</a>
+          </div>
+        </section>
+        <section class="section home-process">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">OD PRVNÍHO KONTAKTU K PŘEDÁNÍ</p>
+              <h2>Stačí tři jednoduché kroky.</h2>
+            </div>
+          </div>
+          <div class="care-overview">
+            <article>
+              <span class="line-icon">01</span>
+              <h3>Vyberete službu</h3>
+              <p>
+                Detailing objednáte online. Servis a prohlídky domluvíme
+                telefonicky.
+              </p>
+            </article>
+            <article>
+              <span class="line-icon">02</span>
+              <h3>Domluvíme podrobnosti</h3>
+              <p>
+                Ujasníme si rozsah, cenu, místo předání a vše, co je důležité.
+              </p>
+            </article>
+            <article>
+              <span class="line-icon">03</span>
+              <h3>Postaráme se o vůz</h3>
+              <p>
+                Při předání společně projdeme provedenou práci a další
+                doporučení.
+              </p>
+            </article>
+          </div>
+        </section>
+        <section class="section faq-section alternate" id="dotazy">
+          <div>
+            <p class="eyebrow">DOBRÉ VĚDĚT</p>
+            <h2>Časté dotazy.</h2>
+            <p>Na cokoliv dalšího se nás zeptejte.</p>
+            <a class="inline-phone" href="tel:+420736212511">736 212 511 ↗</a>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>
+                Jak se mohu objednat?<span aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Detailing má vlastní
+                  <a href="#rezervace">online rezervaci</a> s výběrem služeb a
+                  konkrétního času. Servis a předkupní prohlídky objednáte na
+                  <a href="tel:+420736212511">736 212 511</a>. Odtah zatím není
+                  dostupný.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>Kde působíte?<span aria-hidden="true">+</span></summary>
+              <div class="faq-answer">
+                <p>
+                  Základnu máme v Nové Pace. Detailing domlouváme po celé ČR;
+                  místo provedení a případnou dopravu potvrdíme podle
+                  vzdálenosti a podmínek. Servis a prohlídku si domluvte
+                  telefonicky.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>
+                Kdy máte otevřeno?<span aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Pondělí až sobota 8:00–20:00. Neděle zavřeno. Návštěvy a
+                  předání vozů vždy po předchozí domluvě.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>
+                Kde najdu ceny?<span aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Detailing má
+                  <a href="#cenik">přehledný ceník včetně energií</a>. U
+                  servisu, prohlídek a dopravy vám předem připravíme
+                  individuální cenu podle rozsahu a místa.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>
+                Mohu auto nechat vyzvednout?<span aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  U detailingu je možné domluvit převzetí a vrácení vozu.
+                  Dostupnost a cenu si odsouhlasíme předem na telefonu. Tato
+                  možnost není odtahovou službou.
+                </p>
+              </div>
+            </details>
+          </div>
+        </section>
       </div>
+      <div id="detail-view" hidden></div>
     </main>
-
-    <main id="detail-view" hidden tabindex="-1"></main>
-    <section class="contact-band" id="kontakt">
-      <div>
-        <p class="eyebrow">VY ŘEKNETE CO. MY PROBEREME JAK.</p>
-        <h2>Začněme jedním zavoláním.</h2>
-        <p>Vaše auto si zaslouží dobrý plán. Rádi ho s vámi domluvíme.</p>
+    <section class="contact-section" id="kontakt">
+      <div class="contact-intro">
+        <p class="eyebrow">JSME NA PŘÍJMU</p>
+        <h2>Pojďme probrat<br /><em>vaše auto.</em></h2>
+        <p>
+          Nevíte, jakou službu zvolit? Zavolejte. Společně najdeme správný další
+          krok.
+        </p>
       </div>
-      <a href="tel:+420736212511" class="contact-phone"
-        >736 212 511 <span>↗</span></a
-      >
+      <div class="contact-details">
+        <a class="contact-phone" href="tel:+420736212511">736 212 511 ↗</a
+        ><a class="contact-email" href="mailto:primeautokontakt@gmail.com"
+          >primeautokontakt@gmail.com ↗</a
+        >
+        <div class="contact-facts">
+          <div>
+            <small>KDY SE DOMLUVÍME</small><strong>Po–So · 8:00–20:00</strong
+            ><span>Neděle zavřeno</span>
+          </div>
+          <div>
+            <small>KDE NÁS NAJDETE</small><strong>Nová Paka</strong
+            ><span
+              >Místo předání potvrdíme předem.<br />Detailing po celé ČR po
+              domluvě.</span
+            >
+          </div>
+        </div>
+      </div>
     </section>
     <footer>
-      <div class="footer-brand">
-        <a href="#domu"><img src="./images/logo.svg" alt="Prime Auto" /></a>
-        <p>Péče. Jistota. Mobilita.</p>
-      </div>
-      <div>
-        <h3>Naše služby</h3>
-        <a href="#detailing">Detailing vozidel</a
-        ><a href="#servis">Servis vozidel</a
-        ><a href="#prohlidky">Předkupní prohlídky</a
-        ><a href="#odtah">Odtah · připravujeme</a>
-      </div>
-      <div>
-        <h3>Jsme na příjmu</h3>
-        <a href="tel:+420736212511">+420 736 212 511</a
-        ><a href="mailto:primeautokontakt@gmail.com"
-          >primeautokontakt@gmail.com</a
-        >
-        <p>
-          Nová Paka · Detailing po celé ČR<br />Po–So 8:00–20:00 · Neděle
-          zavřeno.<br />Návštěvy po předchozí domluvě.
-        </p>
-      </div>
-      <div>
-        <h3>Provozovatel</h3>
-        <p>Matěj Krejčí<br />IČO: 29752663<br />Husitská 1321, Nová Paka</p>
-        <p class="fine">
-          Prime Auto a L&M Garage jsou značky téhož podnikatele.
-        </p>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#domu"
+            ><span class="brand-icon" aria-hidden="true"></span
+            ><span>PRIME AUTO<small>PÉČE. JISTOTA. MOBILITA.</small></span></a
+          >
+          <p>Detailing. Servis. Prohlídky.<br />Jeden kontakt pro vaše auto.</p>
+        </div>
+        <div>
+          <h3>Rychlé odkazy</h3>
+          <a href="#detailing">Detailing a ceník</a
+          ><a href="#servis">Servis vozidel</a
+          ><a href="#prohlidky">Předkupní prohlídky</a
+          ><a href="#odtah">Odtah · připravujeme</a>
+        </div>
+        <div>
+          <h3>Kontakt</h3>
+          <a href="tel:+420736212511">+420 736 212 511</a
+          ><a href="mailto:primeautokontakt@gmail.com"
+            >primeautokontakt@gmail.com</a
+          >
+          <p>Po–So 8:00–20:00<br />Návštěvy po předchozí domluvě.</p>
+        </div>
+        <div>
+          <h3>Provozovatel</h3>
+          <p>Matěj Krejčí · IČO 29752663<br />Husitská 1321, Nová Paka</p>
+          <p class="small-note">
+            Prime Auto a L&M Garage jsou obchodní značky téhož podnikatele.
+          </p>
+        </div>
       </div>
       <div class="footer-bottom">
         <span>© <span id="year"></span> Prime Auto</span>
         <div>
-          <button data-legal="terms">Obchodní podmínky</button
-          ><button data-legal="privacy">Osobní údaje</button
-          ><button data-legal="cookies">Cookies</button>
+          <button type="button" data-legal="terms">Obchodní podmínky</button
+          ><button type="button" data-legal="privacy">Osobní údaje</button
+          ><button type="button" data-legal="cookies">Cookies</button>
         </div>
-        <span>PÉČE. JISTOTA. MOBILITA.</span>
+        <a href="#domu">Zpět nahoru ↑</a>
       </div>
     </footer>
-    <dialog id="legal-dialog">
-      <button class="dialog-close" type="button" aria-label="Zavřít">×</button>
+    <div class="mobile-actions">
+      <a href="tel:+420736212511">Zavolat 736 212 511</a
+      ><a id="mobile-primary" href="#sluzby">Vybrat službu</a>
+    </div>
+    <dialog id="legal-dialog" aria-label="Právní informace">
+      <button type="button" class="dialog-close" aria-label="Zavřít">×</button>
       <div id="legal-content"></div>
     </dialog>
+    <noscript
+      ><div class="no-script">
+        Pro online rezervace a podrobnosti služeb zapněte JavaScript. Rádi vám
+        poradíme na <a href="tel:+420736212511">736 212 511</a>.
+      </div></noscript
+    >
   </body>
 </html>

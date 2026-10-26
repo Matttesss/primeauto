@@ -197,3 +197,90 @@ test("server enforces contacts, terms, early-start request and correct Prague da
     f.done();
   }
 });
+
+test("idempotent retry returns the same reservations, rejects changed payload, and survives reopen", () => {
+  const f = fixture();
+  try {
+    const payload = {
+      ...contacts,
+      requestId: "a1b2c3d4-1234-4123-8123-abcdef123456",
+      vehicles: [vehicle()],
+    };
+    const first = f.api.reserve(payload);
+    const retry = f.api.reserve(payload);
+    assert.equal(retry.replayed, true);
+    assert.equal(retry.reservations[0].id, first.reservations[0].id);
+    assert.equal(f.api.list().length, 1);
+    const second = createBooking({ dbPath: f.path, now: () => NOW });
+    assert.equal(
+      second.reserve(payload).reservations[0].id,
+      first.reservations[0].id,
+    );
+    second.close();
+    assert.throws(() => f.api.reserve({ ...payload, name: "Jiný zákazník" }), {
+      status: 409,
+    });
+    f.api.cancel(first.reservations[0].id);
+    assert.throws(() => f.api.reserve(payload), { status: 409 });
+  } finally {
+    f.done();
+  }
+});
+test("malformed payloads are rejected and per-car fields cannot override shared contacts", () => {
+  const f = fixture();
+  try {
+    for (const data of [
+      null,
+      [],
+      {},
+      { ...contacts, vehicles: [null] },
+      { ...contacts, vehicles: [vehicle("08:00", { transport: "false" })] },
+      { ...contacts, vehicles: [vehicle("08:00", { date: ["2026-10-27"] })] },
+      { ...contacts, vehicles: [vehicle("08:00", { time: ["08:00"] })] },
+    ])
+      assert.throws(() => f.api.reserve(data), { status: 400 });
+    f.api.reserve({
+      ...contacts,
+      vehicles: [
+        vehicle("08:00", { name: "Override", email: "override@example.com" }),
+      ],
+    });
+    assert.equal(f.api.list()[0].name, contacts.name);
+    assert.equal(f.api.list()[0].email, contacts.email);
+  } finally {
+    f.done();
+  }
+});
+
+test("owner time blocks prevent new reservations, remain private in ICS and can be removed", () => {
+  const f = fixture();
+  try {
+    const result = f.api.block({
+      date: "2026-10-27",
+      from: "08:00",
+      to: "13:00",
+      note: "Soukromá poznámka dovolená",
+    });
+    assert.equal(
+      f.api.availability("2026-10-27", ["interier"]).slots[0].time,
+      "13:00",
+    );
+    assert.throws(() => f.api.reserve({ ...contacts, vehicles: [vehicle()] }), {
+      status: 409,
+    });
+    assert(!f.api.calendar().includes("Soukromá"));
+    assert(f.api.calendar().includes("BEGIN:VEVENT"));
+    assert.equal(f.api.blocks().length, 1);
+    f.api.unblock(result.id);
+    assert.equal(
+      f.api.availability("2026-10-27", ["motor"]).slots[0].time,
+      "08:00",
+    );
+    assert.throws(
+      () => f.api.block({ date: "bad", from: "08:00", to: "20:00" }),
+      { status: 400 },
+    );
+  } finally {
+    f.done();
+  }
+});

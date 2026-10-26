@@ -13,8 +13,37 @@ const origins = new Set(
     .map((v) => v.trim()),
 );
 const limits = new Map();
+
+async function readJSON(req, limit) {
+  if (
+    !/^application\/json(?:\s*;|$)/i.test(
+      String(req.headers["content-type"] || ""),
+    )
+  )
+    throw Object.assign(Error("Očekáván JSON."), { status: 415 });
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > limit)
+      throw Object.assign(Error("Požadavek je příliš velký."), { status: 413 });
+    chunks.push(chunk);
+  }
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch {
+    throw Object.assign(Error("Neplatný JSON."), { status: 400 });
+  }
+}
+
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url, "http://localhost");
+  let url;
+  try {
+    url = new URL(req.url, "http://localhost");
+  } catch {
+    res.writeHead(400).end("Neplatná adresa.");
+    return;
+  }
   const origin = req.headers.origin;
   const same =
     origin === `http://${req.headers.host}` ||
@@ -92,27 +121,29 @@ const server = http.createServer(async (req, res) => {
           .end();
         return;
       }
+      if (req.method === "GET" && url.pathname === "/api/admin/blocks")
+        return json(200, booking.blocks());
+      if (req.method === "POST" && url.pathname === "/api/admin/blocks")
+        return json(201, booking.block(await readJSON(req, 2048)));
+      if (req.method === "POST" && url.pathname === "/api/admin/unblock") {
+        const data = await readJSON(req, 1024);
+        return json(200, booking.unblock(data?.id));
+      }
       if (req.method === "GET" && url.pathname === "/api/admin/bookings")
         return json(200, booking.list());
       if (req.method === "POST" && url.pathname === "/api/admin/cancel") {
-        if (!String(req.headers["content-type"]).startsWith("application/json"))
-          return json(415, { error: "Očekáván JSON." });
-        let body = "";
-        for await (const chunk of req) {
-          body += chunk;
-          if (Buffer.byteLength(body) > 1024)
-            return json(413, { error: "Příliš velký požadavek." });
-        }
-        let data;
-        try {
-          data = JSON.parse(body);
-        } catch {
-          return json(400, { error: "Neplatný JSON." });
-        }
+        const data = await readJSON(req, 1024);
+        if (!data || typeof data !== "object" || Array.isArray(data))
+          return json(400, { error: "Neplatná rezervace." });
         return json(200, booking.cancel(data.id));
       }
       if (req.method === "GET" && url.pathname === "/api/health")
-        return json(200, { status: "ok", booking: booking.configured });
+        return json(200, {
+          status: "ok",
+          application: "prime-auto",
+          version: "4.0.0",
+          booking: booking.configured,
+        });
       if (req.method === "GET" && url.pathname === "/api/availability") {
         const selected = (url.searchParams.get("services") || "interier").split(
           ",",
@@ -151,21 +182,9 @@ const server = http.createServer(async (req, res) => {
             ? { ...rate, count: rate.count + 1 }
             : { until: now + 3600000, count: 1 },
         );
-        if (!String(req.headers["content-type"]).startsWith("application/json"))
-          return json(415, { error: "Očekáván JSON." });
-        let body = "";
-        for await (const chunk of req) {
-          body += chunk;
-          if (Buffer.byteLength(body) > 16384)
-            return json(413, { error: "Požadavek je příliš velký." });
-        }
-        let data;
-        try {
-          data = JSON.parse(body);
-        } catch {
-          return json(400, { error: "Neplatný požadavek." });
-        }
-        return json(201, booking.reserve(data));
+        const data = await readJSON(req, 16384);
+        const result = booking.reserve(data);
+        return json(result.replayed ? 200 : 201, result);
       }
       return json(404, { error: "Nenalezeno." });
     }
@@ -213,4 +232,20 @@ server.listen(Number(process.env.PORT) || 3000, "0.0.0.0", () =>
     "Prime Auto běží; online rezervace " +
       (booking.configured ? "aktivní" : "čekají na nastavení pracovní doby"),
   ),
+);
+
+server.on("error", (error) => {
+  console.error(
+    error.code === "EADDRINUSE"
+      ? "Port je již obsazený. Zavřete předchozí spuštěné okno webu nebo nastavte jiný PORT."
+      : error.message,
+  );
+  booking.close();
+  process.exitCode = 1;
+});
+process.on("SIGTERM", () =>
+  server.close(() => {
+    booking.close();
+    process.exit(0);
+  }),
 );

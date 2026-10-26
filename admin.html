@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex,nofollow" />
     <title>Prime Auto — správa rezervací</title>
     <link rel="stylesheet" href="/style.css" />
-    <script src="/admin.js" defer></script>
+    <script type="module" src="/admin.js"></script>
   </head>
   <body>
     <header>
@@ -32,6 +32,34 @@
       <button class="button" id="refresh">Obnovit</button>
       <p id="admin-status" role="status"></p>
       <div id="reservations"></div>
+      <section class="admin-blocks">
+        <h2>Vlastní blokace času</h2>
+        <p>
+          Pro dovolenou nebo jinou práci. Blokace brání novým objednávkám, ale
+          neruší již přijaté rezervace.
+        </p>
+        <form id="block-form">
+          <div class="fields">
+            <label>Den<input name="date" type="date" required /></label
+            ><label
+              >Poznámka pro vás<input
+                name="note"
+                maxlength="200"
+                placeholder="Např. dovolená"
+            /></label>
+          </div>
+          <div class="fields">
+            <label
+              >Od<input name="from" type="time" value="08:00" required /></label
+            ><label
+              >Do<input name="to" type="time" value="20:00" required
+            /></label>
+          </div>
+          <button class="button" type="submit">Zablokovat čas</button>
+          <p id="block-status" role="status"></p>
+        </form>
+        <div id="blocks"></div>
+      </section>
     </main>
   </body>
 </html>

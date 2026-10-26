@@ -1,4 +1,5 @@
 import test from "node:test";
+import { request as httpRequest } from "node:http";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
@@ -95,6 +96,60 @@ test("HTTP booking, concurrent conflict, authenticated calendar management and s
     assert.equal(after.slots[0].time, "08:00");
     const ics = await (await fetch(base + "/api/calendar.ics")).text();
     assert.ok(!ics.includes("BEGIN:VEVENT"));
+    for (const invalid of [null, [], { vehicles: [null] }])
+      assert.equal(
+        (
+          await fetch(base + "/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(invalid),
+          })
+        ).status,
+        400,
+      );
+    const replay = { ...payload, requestId: randomUUID() };
+    const firstReplay = await fetch(base + "/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(replay),
+    });
+    assert.equal(firstReplay.status, 201);
+    const repeated = await fetch(base + "/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(replay),
+    });
+    assert.equal(repeated.status, 200);
+    assert.equal((await repeated.json()).replayed, true);
+    date.setUTCDate(date.getUTCDate() + 1);
+    while (date.getUTCDay() === 0) date.setUTCDate(date.getUTCDate() + 1);
+    const utfPayload = {
+      ...payload,
+      name: "Žluťoučký zákazník",
+      vehicles: [
+        { ...payload.vehicles[0], date: date.toISOString().slice(0, 10) },
+      ],
+    };
+    const bytes = Buffer.from(JSON.stringify(utfPayload));
+    const split = bytes.indexOf(Buffer.from("Ž")) + 1;
+    const utfStatus = await new Promise((resolve, reject) => {
+      const req = httpRequest(
+        base + "/api/bookings",
+        { method: "POST", headers: { "Content-Type": "application/json" } },
+        (response) => {
+          response.resume();
+          response.on("end", () => resolve(response.statusCode));
+        },
+      );
+      req.on("error", reject);
+      req.write(bytes.subarray(0, split));
+      setImmediate(() => req.end(bytes.subarray(split)));
+    });
+    assert.equal(utfStatus, 201);
+    const unicodeRows = await (
+      await fetch(base + "/api/admin/bookings", { headers: auth })
+    ).json();
+    assert(unicodeRows.some((r) => r.name === "Žluťoučký zákazník"));
     const origin = await fetch(
       base + "/api/availability?date=" + day + "&services=motor",
       { headers: { Origin: "https://malicious.example" } },
