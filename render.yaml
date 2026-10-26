@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: primeauto
+    runtime: node
+    region: frankfurt
+    plan: starter
+    buildCommand: npm run check && npm test
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: NODE_VERSION
+        value: "24"
+      - key: BOOKING_DB_PATH
+        value: /var/data/primeauto/bookings.sqlite
+      - key: BOOKING_OPEN
+        value: "08:00"
+      - key: BOOKING_CLOSE
+        value: "20:00"
+      - key: BOOKING_ALLOWED_ORIGINS
+        value: https://matttesss.github.io
+    disk:
+      name: primeauto-bookings
+      mountPath: /var/data/primeauto
+      sizeGB: 1

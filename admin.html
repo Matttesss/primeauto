@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Prime Auto — správa rezervací</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/admin.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/">PRIME AUTO / REZERVACE</a
+      ><a href="/api/calendar.ics">Kalendář obsazenosti (.ics)</a>
+    </header>
+    <main class="section">
+      <p class="eyebrow">SOUKROMÁ SPRÁVA</p>
+      <h1>Rezervace.</h1>
+      <p>
+        Všechny časy jsou v časové zóně Europe/Prague. Storno ihned uvolní čas v
+        online formuláři.
+      </p>
+      <div class="fields">
+        <label>Den<input type="date" id="filter-date" /></label
+        ><label
+          >Stav<select id="filter-status">
+            <option value="active">Aktivní</option>
+            <option value="all">Včetně zrušených</option>
+          </select></label
+        >
+      </div>
+      <button class="button" id="refresh">Obnovit</button>
+      <p id="admin-status" role="status"></p>
+      <div id="reservations"></div>
+    </main>
+  </body>
+</html>
