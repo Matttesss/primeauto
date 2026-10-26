@@ -1,0 +1,5 @@
+import http from 'node:http';
+import {readFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+const root=new URL('./public/',import.meta.url);
+http.createServer(async(req,res)=>{try{const path=decodeURIComponent(new URL(req.url,'http://localhost').pathname); const file=new URL('.'+(path==='/'?'/index.html':path),root);if(!file.href.startsWith(root.href)){res.writeHead(403).end();return;}const data=await readFile(fileURLToPath(file));res.writeHead(200,{'Content-Type':({'html':'text/html; charset=utf-8','css':'text/css','js':'text/javascript','svg':'image/svg+xml','png':'image/png'})[file.pathname.split('.').pop()]||'application/octet-stream','X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin','Content-Security-Policy':"default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"}).end(data);}catch{res.writeHead(404).end('Stránka nenalezena');}}).listen(Number(process.env.PORT)||3000,'0.0.0.0',()=>console.log('Prime Auto běží na portu '+(process.env.PORT||3000)));

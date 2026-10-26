@@ -1,0 +1,13 @@
+{
+  "name": "prime-auto",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check public/app.js && node --check public/legal.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
